@@ -1,0 +1,6 @@
+<Alloy>
+    <ItemTemplate height="50" name="openTemplate" backgroundColor="transparent" selectedBackgroundColor="transparent" height="Ti.UI.SIZE">
+        <Label color="black" bindId="desc" left="10" width="200"/>
+        <Label color="black" bindId="priority" left="211" width="40"/>
+    </ItemTemplate>
+</Alloy>

@@ -1,9 +1,17 @@
 <Alloy>
     <Window class="container" layout="vertical" backgroundColor="#c5c5c7">
         <Label top="10" height="10%" text="To Do List"></Label>
-        <ListView id="todolist" width="90%" height="80%" backgroundColor="white">
-            <ListSection headerTitle="open" id="open"/>
-            <ListSection headerTitle="completed" id="completed"/>
+        <ListView id="todolist" width="90%" height="80%" backgroundColor="white" defaultItemTemplate="openTemplate">
+            <Templates>
+                <Require src="templates/openItem"/>
+                <Require src="templates/closedItem"/>
+                <Require src="templates/spacer"/>
+            </Templates>
+            <ListSection headerTitle="open" id="openSection"/>
+            <ListSection id="spacerSection">
+                <ListItem template ="spacerTemplate"/>
+            </ListSection>
+            <ListSection headerTitle="completed" id="completedSection"/>
         </ListView>
-	</Window>
+    </Window>
 </Alloy>
