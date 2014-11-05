@@ -8,35 +8,27 @@ function Controller() {
     var exports = {};
     var __alloyId17 = [];
     var __alloyId19 = {
-        type: "Ti.UI.ImageView",
+        type: "Ti.UI.Label",
+        bindId: "desc",
         properties: {
+            color: "#c5c5c7",
+            bindId: "desc",
             left: "10",
-            width: "40"
+            width: "150"
         }
     };
     __alloyId17.push(__alloyId19);
     var __alloyId21 = {
         type: "Ti.UI.Label",
-        bindId: "desc",
-        properties: {
-            color: "blue",
-            bindId: "desc",
-            left: "50",
-            width: "200"
-        }
-    };
-    __alloyId17.push(__alloyId21);
-    var __alloyId23 = {
-        type: "Ti.UI.Label",
         bindId: "priority",
         properties: {
-            color: "blue",
+            color: "#cfcfc7",
             bindId: "priority",
-            left: "260",
+            right: "10",
             width: "40"
         }
     };
-    __alloyId17.push(__alloyId23);
+    __alloyId17.push(__alloyId21);
     $.__views.closedItem = {
         properties: {
             height: Ti.UI.SIZE,

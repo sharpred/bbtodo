@@ -7,7 +7,7 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "#c5c5c7",
+        backgroundColor: "brown",
         layout: "vertical",
         id: "index"
     });
@@ -21,6 +21,17 @@ function Controller() {
         id: "__alloyId0"
     });
     $.__views.index.add($.__views.__alloyId0);
+    $.__views.newentry = Ti.UI.createTextField({
+        width: "90%",
+        height: "30",
+        id: "newentry",
+        color: "black",
+        backgroundColor: "white",
+        opacity: "1",
+        hintText: "Add an Item",
+        paddingLeft: "10"
+    });
+    $.__views.index.add($.__views.newentry);
     var __alloyId2 = {};
     Alloy.createController("templates/openItem", {
         __itemTemplate: __alloyId2
@@ -32,7 +43,7 @@ function Controller() {
         __itemTemplate: __alloyId2
     });
     $.__views.openSection = Ti.UI.createListSection({
-        headerTitle: "open",
+        headerTitle: "open items",
         id: "openSection"
     });
     var __alloyId12 = [];
@@ -51,7 +62,7 @@ function Controller() {
     $.__views.spacerSection.items = __alloyId14;
     __alloyId12.push($.__views.spacerSection);
     $.__views.completedSection = Ti.UI.createListSection({
-        headerTitle: "completed",
+        headerTitle: "completed items",
         id: "completedSection"
     });
     __alloyId12.push($.__views.completedSection);
@@ -60,7 +71,7 @@ function Controller() {
         templates: __alloyId2,
         id: "todolist",
         width: "90%",
-        height: "80%",
+        height: "300",
         backgroundColor: "white",
         defaultItemTemplate: "openTemplate"
     });
@@ -82,9 +93,23 @@ function Controller() {
         priority: {
             text: "high"
         }
+    }, {
+        desc: {
+            text: "water the flowers"
+        },
+        priority: {
+            text: "high"
+        }
     } ];
     $.openSection.setItems(openItems);
     $.completedSection.setItems(completedItems);
+    var items = $.completedSection.getItems();
+    var count = 0;
+    _.each(items, function(item) {
+        item.template = "closedTemplate";
+        $.completedSection.updateItemAt(count, item);
+        count++;
+    });
     $.index.open();
     _.extend($, exports);
 }
