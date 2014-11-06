@@ -20,6 +20,13 @@ var completedItems = [{
     priority : {
         text : 'high'
     }
+},{
+    desc : {
+        text : 'This is a very, very long description that will overrun the text field.  I wonder how it will look.'
+    },
+    priority : {
+        text : 'medium'
+    }
 }];
 $.openSection.setItems(openItems);
 $.completedSection.setItems(completedItems);

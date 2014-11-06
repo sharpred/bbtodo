@@ -33,51 +33,45 @@ function Controller() {
         paddingLeft: "10"
     });
     $.__views.index.add($.__views.newentry);
-    $.__views.__alloyId2 = Ti.UI.createView({
-        height: Ti.UI.FILL,
-        backgroundColor: "red",
-        id: "__alloyId2"
-    });
-    var __alloyId4 = {};
+    var __alloyId2 = {};
     Alloy.createController("templates/openItem", {
-        __itemTemplate: __alloyId4
+        __itemTemplate: __alloyId2
     });
     Alloy.createController("templates/closedItem", {
-        __itemTemplate: __alloyId4
+        __itemTemplate: __alloyId2
     });
     Alloy.createController("templates/spacer", {
-        __itemTemplate: __alloyId4
+        __itemTemplate: __alloyId2
     });
     $.__views.openSection = Ti.UI.createListSection({
         headerTitle: "open items",
         id: "openSection"
     });
+    var __alloyId12 = [];
+    __alloyId12.push($.__views.openSection);
     var __alloyId14 = [];
-    __alloyId14.push($.__views.openSection);
-    var __alloyId16 = [];
-    $.__views.__alloyId17 = {
+    $.__views.__alloyId15 = {
         template: "spacerTemplate",
         properties: {
-            id: "__alloyId17"
+            id: "__alloyId15"
         }
     };
-    __alloyId16.push($.__views.__alloyId17);
+    __alloyId14.push($.__views.__alloyId15);
     $.__views.spacerSection = Ti.UI.createListSection({
         id: "spacerSection"
     });
-    $.__views.spacerSection.items = __alloyId16;
-    __alloyId14.push($.__views.spacerSection);
+    $.__views.spacerSection.items = __alloyId14;
+    __alloyId12.push($.__views.spacerSection);
     $.__views.completedSection = Ti.UI.createListSection({
         headerTitle: "completed items",
         id: "completedSection"
     });
-    __alloyId14.push($.__views.completedSection);
+    __alloyId12.push($.__views.completedSection);
     $.__views.todolist = Ti.UI.createListView({
-        sections: __alloyId14,
-        templates: __alloyId4,
-        pullView: $.__views.__alloyId2,
+        sections: __alloyId12,
+        templates: __alloyId2,
         id: "todolist",
-        separatorStyle: Titanium.UI.iPhone.ListViewSeparatorStyle.NONE,
+        separatorStyle: Titanium.UI.iPhone.ListViewSeparatorStyle.SINGLE_LINE,
         width: "90%",
         height: "300",
         backgroundColor: "white",
@@ -107,6 +101,13 @@ function Controller() {
         },
         priority: {
             text: "high"
+        }
+    }, {
+        desc: {
+            text: "This is a very, very long description that will overrun the text field.  I wonder how it will look."
+        },
+        priority: {
+            text: "medium"
         }
     } ];
     $.openSection.setItems(openItems);

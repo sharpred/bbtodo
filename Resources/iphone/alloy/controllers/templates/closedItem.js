@@ -6,29 +6,31 @@ function Controller() {
     var __itemTemplate = arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId19 = [];
-    var __alloyId21 = {
+    var __alloyId17 = [];
+    var __alloyId19 = {
         type: "Ti.UI.Label",
         bindId: "desc",
         properties: {
+            height: "50",
             color: "#c5c5c7",
             bindId: "desc",
             left: "10",
             width: "150"
         }
     };
-    __alloyId19.push(__alloyId21);
-    var __alloyId23 = {
+    __alloyId17.push(__alloyId19);
+    var __alloyId21 = {
         type: "Ti.UI.Label",
         bindId: "priority",
         properties: {
+            height: "50",
             color: "#cfcfc7",
             bindId: "priority",
             right: "10",
-            width: "40"
+            width: "75"
         }
     };
-    __alloyId19.push(__alloyId23);
+    __alloyId17.push(__alloyId21);
     $.__views.closedItem = {
         properties: {
             height: Ti.UI.SIZE,
@@ -37,7 +39,7 @@ function Controller() {
             selectedBackgroundColor: "transparent",
             id: "closedItem"
         },
-        childTemplates: __alloyId19
+        childTemplates: __alloyId17
     };
     __itemTemplate["closedTemplate"] = $.__views.closedItem;
     $.__views.closedItem && $.addTopLevelView($.__views.closedItem);

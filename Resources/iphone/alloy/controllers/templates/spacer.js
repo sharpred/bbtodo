@@ -6,14 +6,14 @@ function Controller() {
     var __itemTemplate = arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId29 = [];
-    var __alloyId31 = {
+    var __alloyId27 = [];
+    var __alloyId29 = {
         type: "Ti.UI.View",
         properties: {
             height: "5"
         }
     };
-    __alloyId29.push(__alloyId31);
+    __alloyId27.push(__alloyId29);
     $.__views.spacer = {
         properties: {
             name: "spacerTemplate",
@@ -22,7 +22,7 @@ function Controller() {
             height: Ti.UI.SIZE,
             id: "spacer"
         },
-        childTemplates: __alloyId29
+        childTemplates: __alloyId27
     };
     __itemTemplate["spacerTemplate"] = $.__views.spacer;
     $.__views.spacer && $.addTopLevelView($.__views.spacer);
