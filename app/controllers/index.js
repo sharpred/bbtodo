@@ -24,7 +24,7 @@ var completedItems = [{
 $.openSection.setItems(openItems);
 $.completedSection.setItems(completedItems);
 var items = $.completedSection.getItems();
-var count=0;
+var count = 0;
 _.each(items, function(item) {
     item.template = 'closedTemplate';
     $.completedSection.updateItemAt(count, item);

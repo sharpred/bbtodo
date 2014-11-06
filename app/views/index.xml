@@ -1,8 +1,8 @@
 <Alloy>
-    <Window class="container" layout="vertical" backgroundColor="brown">
+    <Window class="container" layout="vertical" backgroundImage="bg/bg.png">
         <Label top="10" height="10%" text="To Do List"></Label>
-        <TextField width="90%" height="30" id="newentry" color="black" backgroundColor="white" opacity="1" hintText="Add an Item" paddingLeft="10"></TextField>
-        <ListView id="todolist" width="90%" height="300" backgroundColor="white" defaultItemTemplate="openTemplate">
+        <TextField width="90%" height="30" id="newentry" color="black" backgroundColor="white" opacity="0.5" hintText="Add an Item" paddingLeft="10"></TextField>
+        <ListView id="todolist" separatorStyle="Titanium.UI.iPhone.ListViewSeparatorStyle.NONE" width="90%" height="300" backgroundColor="white" defaultItemTemplate="openTemplate">
             <Templates>
                 <Require src="templates/openItem"/>
                 <Require src="templates/closedItem"/>

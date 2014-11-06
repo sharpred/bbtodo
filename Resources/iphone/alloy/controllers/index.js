@@ -7,8 +7,9 @@ function Controller() {
     var $ = this;
     var exports = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "brown",
+        backgroundColor: "white",
         layout: "vertical",
+        backgroundImage: "bg/bg.png",
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
@@ -27,49 +28,56 @@ function Controller() {
         id: "newentry",
         color: "black",
         backgroundColor: "white",
-        opacity: "1",
+        opacity: "0.5",
         hintText: "Add an Item",
         paddingLeft: "10"
     });
     $.__views.index.add($.__views.newentry);
-    var __alloyId2 = {};
+    $.__views.__alloyId2 = Ti.UI.createView({
+        height: Ti.UI.FILL,
+        backgroundColor: "red",
+        id: "__alloyId2"
+    });
+    var __alloyId4 = {};
     Alloy.createController("templates/openItem", {
-        __itemTemplate: __alloyId2
+        __itemTemplate: __alloyId4
     });
     Alloy.createController("templates/closedItem", {
-        __itemTemplate: __alloyId2
+        __itemTemplate: __alloyId4
     });
     Alloy.createController("templates/spacer", {
-        __itemTemplate: __alloyId2
+        __itemTemplate: __alloyId4
     });
     $.__views.openSection = Ti.UI.createListSection({
         headerTitle: "open items",
         id: "openSection"
     });
-    var __alloyId12 = [];
-    __alloyId12.push($.__views.openSection);
     var __alloyId14 = [];
-    $.__views.__alloyId15 = {
+    __alloyId14.push($.__views.openSection);
+    var __alloyId16 = [];
+    $.__views.__alloyId17 = {
         template: "spacerTemplate",
         properties: {
-            id: "__alloyId15"
+            id: "__alloyId17"
         }
     };
-    __alloyId14.push($.__views.__alloyId15);
+    __alloyId16.push($.__views.__alloyId17);
     $.__views.spacerSection = Ti.UI.createListSection({
         id: "spacerSection"
     });
-    $.__views.spacerSection.items = __alloyId14;
-    __alloyId12.push($.__views.spacerSection);
+    $.__views.spacerSection.items = __alloyId16;
+    __alloyId14.push($.__views.spacerSection);
     $.__views.completedSection = Ti.UI.createListSection({
         headerTitle: "completed items",
         id: "completedSection"
     });
-    __alloyId12.push($.__views.completedSection);
+    __alloyId14.push($.__views.completedSection);
     $.__views.todolist = Ti.UI.createListView({
-        sections: __alloyId12,
-        templates: __alloyId2,
+        sections: __alloyId14,
+        templates: __alloyId4,
+        pullView: $.__views.__alloyId2,
         id: "todolist",
+        separatorStyle: Titanium.UI.iPhone.ListViewSeparatorStyle.NONE,
         width: "90%",
         height: "300",
         backgroundColor: "white",

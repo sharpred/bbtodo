@@ -6,8 +6,8 @@ function Controller() {
     var __itemTemplate = arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __alloyId17 = [];
-    var __alloyId19 = {
+    var __alloyId19 = [];
+    var __alloyId21 = {
         type: "Ti.UI.Label",
         bindId: "desc",
         properties: {
@@ -17,8 +17,8 @@ function Controller() {
             width: "150"
         }
     };
-    __alloyId17.push(__alloyId19);
-    var __alloyId21 = {
+    __alloyId19.push(__alloyId21);
+    var __alloyId23 = {
         type: "Ti.UI.Label",
         bindId: "priority",
         properties: {
@@ -28,7 +28,7 @@ function Controller() {
             width: "40"
         }
     };
-    __alloyId17.push(__alloyId21);
+    __alloyId19.push(__alloyId23);
     $.__views.closedItem = {
         properties: {
             height: Ti.UI.SIZE,
@@ -37,7 +37,7 @@ function Controller() {
             selectedBackgroundColor: "transparent",
             id: "closedItem"
         },
-        childTemplates: __alloyId17
+        childTemplates: __alloyId19
     };
     __itemTemplate["closedTemplate"] = $.__views.closedItem;
     $.__views.closedItem && $.addTopLevelView($.__views.closedItem);
