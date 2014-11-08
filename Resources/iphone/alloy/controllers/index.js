@@ -81,40 +81,42 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     Alloy.Collections.todo.fetch();
-    var openItems = [], completedItems = [];
-    Alloy.Collections.todo.each(function(item) {
-        var completed = item.get("completed");
-        completed ? closedItems.push({
-            desc: {
-                text: item.get("desc")
-            },
-            priority: {
-                text: item.get("priority")
-            },
-            alloy_id: {
-                text: item.get("alloy_id")
-            }
-        }) : openItems.push({
-            desc: {
-                text: item.get("desc")
-            },
-            priority: {
-                text: item.get("priority")
-            },
-            alloy_id: {
-                text: item.get("alloy_id")
-            }
+    var update = function() {
+        var openItems = [], completedItems = [];
+        Alloy.Collections.todo.each(function(item) {
+            var completed = item.get("completed");
+            completed ? completedItems.push({
+                desc: {
+                    text: item.get("desc")
+                },
+                priority: {
+                    text: item.get("priority")
+                },
+                alloy_id: {
+                    text: item.get("alloy_id")
+                }
+            }) : openItems.push({
+                desc: {
+                    text: item.get("desc")
+                },
+                priority: {
+                    text: item.get("priority")
+                },
+                alloy_id: {
+                    text: item.get("alloy_id")
+                }
+            });
         });
-    });
-    $.openSection.setItems(openItems);
-    $.completedSection.setItems(completedItems);
-    var items = $.completedSection.getItems();
-    var count = 0;
-    _.each(items, function(item) {
-        item.template = "closedTemplate";
-        $.completedSection.updateItemAt(count, item);
-        count++;
-    });
+        $.openSection.setItems(openItems);
+        $.completedSection.setItems(completedItems);
+        var items = $.completedSection.getItems();
+        var count = 0;
+        _.each(items, function(item) {
+            item.template = "closedTemplate";
+            $.completedSection.updateItemAt(count, item);
+            count++;
+        });
+    };
     $.newentry.addEventListener("return", function(e) {
         var newTodo, desc = e.value;
         newTodo = Alloy.createModel("todo", {
@@ -143,11 +145,16 @@ function Controller() {
         };
         $.openSection.appendItems([ newItem ]);
     });
+    Alloy.Collections.todo.on("change", update);
     $.todolist.addEventListener("itemclick", function(e) {
-        var item;
+        var item, model, completed = 0;
+        e.section.id && "openSection" === e.section.id && (completed = 1);
         item = $[e.section.id].getItemAt(e.itemIndex);
-        console.log(JSON.stringify(item));
+        model = Alloy.Collections.todo.get(item.alloy_id.text);
+        model.set("completed", completed);
+        model.save();
     });
+    update();
     $.index.open();
     _.extend($, exports);
 }

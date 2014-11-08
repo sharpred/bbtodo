@@ -2,48 +2,49 @@
  * fetch the items from the collection and format them for the listview
  */
 Alloy.Collections.todo.fetch();
-var openItems = [], completedItems = [], savedItems;
-Alloy.Collections.todo.each(function(item) {
-    var completed = item.get('completed');
-    if (!completed) {
-        openItems.push({
-            desc : {
-                text : item.get('desc')
-            },
-            priority : {
-                text : item.get('priority')
-            },
-            alloy_id : {
-                text : item.get('alloy_id')
-            }
-        });
-    } else {
-        closedItems.push({
-            desc : {
-                text : item.get('desc')
-            },
-            priority : {
-                text : item.get('priority')
-            },
-            alloy_id : {
-                text : item.get('alloy_id')
-            }
-        });
-    }
-});
-
-$.openSection.setItems(openItems);
-$.completedSection.setItems(completedItems);
-/**
- * change the completed item template
- */
-var items = $.completedSection.getItems();
-var count = 0;
-_.each(items, function(item) {
-    item.template = 'closedTemplate';
-    $.completedSection.updateItemAt(count, item);
-    count++;
-});
+var update = function() {
+    var openItems = [], completedItems = [], savedItems;
+    Alloy.Collections.todo.each(function(item) {
+        var completed = item.get('completed');
+        if (!completed) {
+            openItems.push({
+                desc : {
+                    text : item.get('desc')
+                },
+                priority : {
+                    text : item.get('priority')
+                },
+                alloy_id : {
+                    text : item.get('alloy_id')
+                }
+            });
+        } else {
+            completedItems.push({
+                desc : {
+                    text : item.get('desc')
+                },
+                priority : {
+                    text : item.get('priority')
+                },
+                alloy_id : {
+                    text : item.get('alloy_id')
+                }
+            });
+        }
+    });
+    $.openSection.setItems(openItems);
+    $.completedSection.setItems(completedItems);
+    /**
+     * change the completed item template
+     */
+    var items = $.completedSection.getItems();
+    var count = 0;
+    _.each(items, function(item) {
+        item.template = 'closedTemplate';
+        $.completedSection.updateItemAt(count, item);
+        count++;
+    });
+};
 /**
  * listeners
  */
@@ -75,19 +76,26 @@ Alloy.Collections.todo.on("add", function(item) {
     };
     $.openSection.appendItems([newItem]);
 });
+Alloy.Collections.todo.on('change', update);
 /**
  * itemclick listener
  */
 $.todolist.addEventListener('itemclick', function(e) {
-    var item;
-    /*
-     console.log((e.section.id));
-     console.log((e.itemIndex));
-     console.log((e.bindId));*/
-
+    /**
+     * completed defaults to false, onclick it toggles and view is updated
+     */
+    var item, model, completed = 0;
+    if (e.section.id && e.section.id === 'openSection') {
+        completed = 1;
+    }
+    //get the item from the relevant section
     item = $[e.section.id].getItemAt(e.itemIndex);
-    console.log(JSON.stringify(item));
+    //update the model and persist the update
+    model = Alloy.Collections.todo.get(item.alloy_id.text);
+    model.set("completed", completed);
+    model.save();
 });
 
 //finally load the page
+update();
 $.index.open();
