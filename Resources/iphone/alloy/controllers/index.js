@@ -80,36 +80,18 @@ function Controller() {
     $.__views.index.add($.__views.todolist);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var openItems = [ {
-        desc: {
-            text: "put the rubbish out"
-        },
-        priority: {
-            text: "high"
-        }
-    } ];
-    var completedItems = [ {
-        desc: {
-            text: "put the cat out"
-        },
-        priority: {
-            text: "high"
-        }
-    }, {
-        desc: {
-            text: "water the flowers"
-        },
-        priority: {
-            text: "high"
-        }
-    }, {
-        desc: {
-            text: "This is a very, very long description that will overrun the text field.  I wonder how it will look."
-        },
-        priority: {
-            text: "medium"
-        }
-    } ];
+    Alloy.Collections.todo.fetch();
+    var openItems = [], completedItems = [];
+    Alloy.Collections.todo.each(function(item) {
+        openItems.push({
+            desc: {
+                text: item.get("desc")
+            },
+            priority: {
+                text: item.get("priority")
+            }
+        });
+    });
     $.openSection.setItems(openItems);
     $.completedSection.setItems(completedItems);
     var items = $.completedSection.getItems();
@@ -120,11 +102,13 @@ function Controller() {
         count++;
     });
     $.newentry.addEventListener("return", function(e) {
-        var desc = e.value;
-        Alloy.Collections.todo.add({
+        var newTodo, desc = e.value;
+        newTodo = Alloy.createModel("todo", {
             desc: desc,
             priority: "high"
         });
+        newTodo.save();
+        Alloy.Collections.todo.add(newTodo);
         $.newentry.value = "";
     });
     Alloy.Collections.todo.on("add", function(item) {
@@ -139,7 +123,6 @@ function Controller() {
                 text: priority
             }
         };
-        Alloy.Collections.todo.save();
         $.openSection.appendItems([ newItem ]);
     });
     $.index.open();
