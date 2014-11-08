@@ -95,7 +95,10 @@ $.todolist.addEventListener('itemclick', function(e) {
     model.set("completed", completed);
     model.save();
 });
-
+$.config.addEventListener('click', function() {
+    var menu = Alloy.createController("menu/side").getView();
+    menu.open();
+});
 //finally load the page
 update();
 $.index.open();

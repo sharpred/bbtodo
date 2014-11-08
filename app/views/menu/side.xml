@@ -1,0 +1,7 @@
+<Alloy>
+	<Window class="container" layout="horizontal">
+	    <View height="Ti.UI.SIZE" width="30%" backgroundColor="#c5c5c7"></View>
+        <View height="Ti.UI.SIZE" width="70%" backgroundColor="transparent"></View>
+	    <View></View>
+	</Window>
+</Alloy>
