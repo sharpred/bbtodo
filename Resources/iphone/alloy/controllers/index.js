@@ -119,6 +119,29 @@ function Controller() {
         $.completedSection.updateItemAt(count, item);
         count++;
     });
+    $.newentry.addEventListener("return", function(e) {
+        var desc = e.value;
+        Alloy.Collections.todo.add({
+            desc: desc,
+            priority: "high"
+        });
+        $.newentry.value = "";
+    });
+    Alloy.Collections.todo.on("add", function(item) {
+        var desc, priority, newItem;
+        desc = item.get("desc");
+        priority = item.get("priority");
+        newItem = {
+            desc: {
+                text: desc
+            },
+            priority: {
+                text: priority
+            }
+        };
+        Alloy.Collections.todo.save();
+        $.openSection.appendItems([ newItem ]);
+    });
     $.index.open();
     _.extend($, exports);
 }

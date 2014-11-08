@@ -1,11 +1,11 @@
 exports.definition = {
     config : {
         columns : {
-            "action" : "TEXT",
+            "desc" : "TEXT",
             "reminder" : "INTEGER",
             "priority" : "INTEGER",
             "type" : "TEXT",
-            "completed": "INTEGER"
+            "completed" : "INTEGER"
         },
         adapter : {
             type : "sql",
@@ -15,6 +15,7 @@ exports.definition = {
     extendModel : function(Model) {
         _.extend(Model.prototype, {
             // extended functions and properties go here
+            modelWibble: function() {}
         });
 
         return Model;
@@ -22,8 +23,10 @@ exports.definition = {
     extendCollection : function(Collection) {
         _.extend(Collection.prototype, {
             // extended functions and properties go here
+            wibble : function() {
+            }
         });
 
         return Collection;
     }
-};
+}; 

@@ -1,7 +1,7 @@
 exports.definition = {
     config: {
         columns: {
-            action: "TEXT",
+            desc: "TEXT",
             reminder: "INTEGER",
             priority: "INTEGER",
             type: "TEXT",
@@ -13,11 +13,15 @@ exports.definition = {
         }
     },
     extendModel: function(Model) {
-        _.extend(Model.prototype, {});
+        _.extend(Model.prototype, {
+            modelWibble: function() {}
+        });
         return Model;
     },
     extendCollection: function(Collection) {
-        _.extend(Collection.prototype, {});
+        _.extend(Collection.prototype, {
+            wibble: function() {}
+        });
         return Collection;
     }
 };
