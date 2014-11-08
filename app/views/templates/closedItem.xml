@@ -3,5 +3,6 @@
         <!--<ImageView left="10" width="40"/> -->
         <Label height="50" color="#c5c5c7" bindId="desc" left="10" width="150"/>
         <Label height="50" color="#cfcfc7" bindId="priority" right="10" width="75"/>
+        <Label height=0 width=0 id="alloy_id">
     </ItemTemplate>
 </Alloy>

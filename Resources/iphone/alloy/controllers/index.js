@@ -83,12 +83,26 @@ function Controller() {
     Alloy.Collections.todo.fetch();
     var openItems = [], completedItems = [];
     Alloy.Collections.todo.each(function(item) {
-        openItems.push({
+        var completed = item.get("completed");
+        completed ? closedItems.push({
             desc: {
                 text: item.get("desc")
             },
             priority: {
                 text: item.get("priority")
+            },
+            alloy_id: {
+                text: item.get("alloy_id")
+            }
+        }) : openItems.push({
+            desc: {
+                text: item.get("desc")
+            },
+            priority: {
+                text: item.get("priority")
+            },
+            alloy_id: {
+                text: item.get("alloy_id")
             }
         });
     });
@@ -115,15 +129,24 @@ function Controller() {
         var desc, priority, newItem;
         desc = item.get("desc");
         priority = item.get("priority");
+        alloy_id = item.get("alloy_id");
         newItem = {
             desc: {
                 text: desc
             },
             priority: {
                 text: priority
+            },
+            alloy_id: {
+                text: alloy_id
             }
         };
         $.openSection.appendItems([ newItem ]);
+    });
+    $.todolist.addEventListener("itemclick", function(e) {
+        var item;
+        item = $[e.section.id].getItemAt(e.itemIndex);
+        console.log(JSON.stringify(item));
     });
     $.index.open();
     _.extend($, exports);

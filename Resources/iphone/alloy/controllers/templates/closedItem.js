@@ -31,6 +31,14 @@ function Controller() {
         }
     };
     __alloyId17.push(__alloyId21);
+    var __alloyId22 = {
+        type: "Ti.UI.Label",
+        properties: {
+            height: "0",
+            width: "0"
+        }
+    };
+    __alloyId17.push(__alloyId22);
     $.__views.closedItem = {
         properties: {
             height: Ti.UI.SIZE,
