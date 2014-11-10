@@ -5,4 +5,19 @@
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
 	color: "#000"
-} 
+},
+".mainWindow": {
+	height: Alloy.Globals.Helpers.mainWindow.height,
+	width: Alloy.Globals.Helpers.mainWindow.width,
+	borderRadius: 10,
+	top: 50,
+	layout: 'vertical'
+},
+".popOver": {
+	height: 400, //Alloy.Globals.Helpers.mainWindow.height,
+	width: Alloy.Globals.Helpers.mainWindow.width,
+	borderRadius: 10,
+	top: Alloy.Globals.Helpers.popOver.top,
+	layout: 'vertical',
+	backgroundColor: 'white'
+}

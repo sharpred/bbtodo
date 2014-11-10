@@ -1,9 +1,10 @@
 <Alloy>
-    <Window class="container" layout="vertical" backgroundImage="bg/bg.png">
-        <View width="90%" top="10" height="10%" >
+    <Window class="container" backgroundImage="bg/bg.png">
+        <View width="90%" top="20" height="30" >
             <View id="config" left="0" backgroundImage="light_gear.png" height="20" width="20"/>
             <Label text="To Do List"></Label>
         </View>
+        <View id="mainWindow" class="mainWindow">
         <TextField width="90%" height="30" id="newentry" color="black" backgroundColor="white" opacity="0.5" hintText="Add an Item" paddingLeft="10"></TextField>
         <ListView id="todolist" separatorStyle="Titanium.UI.iPhone.ListViewSeparatorStyle.SINGLE_LINE" width="90%" height="70%" backgroundColor="white" defaultItemTemplate="openTemplate">
             <Templates>
@@ -17,5 +18,7 @@
             </ListSection>
             <ListSection headerTitle="completed items" id="completedSection"/>
         </ListView>
+        </View>
+        <View id="popOver" class="popOver">
     </Window>
 </Alloy>

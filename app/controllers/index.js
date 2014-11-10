@@ -95,10 +95,22 @@ $.todolist.addEventListener('itemclick', function(e) {
     model.set("completed", completed);
     model.save();
 });
-$.config.addEventListener('click', function() {
-    var menu = Alloy.createController("menu/side").getView();
-    menu.open();
-});
+var show = true;
+var toggle = function() {
+    var top;
+    if (show) {
+        top = 50;
+    } else {
+        top = Alloy.Globals.Helpers.popOver.top;
+    }
+    show = !show;
+    var animation = Titanium.UI.createAnimation();
+    animation.top = top;
+    animation.duration = 500;
+    $.popOver.animate(animation);
+};
+$.config.addEventListener('click', toggle);
+
 //finally load the page
 update();
 $.index.open();
