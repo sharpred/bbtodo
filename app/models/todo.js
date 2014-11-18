@@ -32,8 +32,42 @@ exports.definition = {
                     return todo.get('completed');
                 });
             },
+            getCompleted : function() {
+                completedItems = [];
+                _.each(this.completed(), function(item) {
+                    completedItems.push({
+                        desc : {
+                            text : item.get('desc')
+                        },
+                        priority : {
+                            text : item.get('priority')
+                        },
+                        alloy_id : {
+                            text : item.get('alloy_id')
+                        }
+                    });
+                });
+                return completedItems;
+            },
             open : function() {
                 return this.without.apply(this, this.completed());
+            },
+            getOpen : function() {
+                openItems = [];
+                _.each(this.open(), function(item) {
+                    openItems.push({
+                        desc : {
+                            text : item.get('desc')
+                        },
+                        priority : {
+                            text : item.get('priority')
+                        },
+                        alloy_id : {
+                            text : item.get('alloy_id')
+                        }
+                    });
+                });
+                return openItems;
             }
         });
 
