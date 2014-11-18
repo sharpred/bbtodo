@@ -15,7 +15,11 @@ exports.definition = {
     extendModel : function(Model) {
         _.extend(Model.prototype, {
             // extended functions and properties go here
-            modelWibble: function() {}
+            toggle : function() {
+                this.save({
+                    completed : !this.get('completed')
+                });
+            }
         });
 
         return Model;
@@ -23,10 +27,16 @@ exports.definition = {
     extendCollection : function(Collection) {
         _.extend(Collection.prototype, {
             // extended functions and properties go here
-            wibble : function() {
+            completed : function() {
+                return this.filter(function(todo) {
+                    return todo.get('completed');
+                });
+            },
+            open : function() {
+                return this.without.apply(this, this.completed());
             }
         });
 
         return Collection;
     }
-}; 
+};

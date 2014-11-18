@@ -20,4 +20,20 @@
 	top: Alloy.Globals.Helpers.popOver.top,
 	layout: 'vertical',
 	backgroundColor: 'white'
+},
+".slideIn": {
+	height: 400,
+	width: Alloy.Globals.Helpers.mainWindow.fourth,
+	borderRadius: 0,
+	top: 50,
+	left: Alloy.Globals.Helpers.slideIn.left,
+	layout: 'vertical',
+	backgroundColor: '#c5c5c7',
+	opacity: 0.75
+},
+".listView": {
+	height: Alloy.Globals.listViewHeight,
+	separatorStyle: "Titanium.UI.iPhone.ListViewSeparatorStyle.SINGLE_LINE",
+	width: "90%",
+	backgroundColor: "white"
 }

@@ -1,9 +1,9 @@
-/**
- * fetch the items from the collection and format them for the listview
- */
-Alloy.Collections.todo.fetch();
 var update = function() {
-    var openItems = [], completedItems = [], savedItems;
+    var openItems = [],
+        completedItems = [],
+        savedItems,
+        totalOpen,
+        totalClosed;
     Alloy.Collections.todo.each(function(item) {
         var completed = item.get('completed');
         if (!completed) {
@@ -34,6 +34,8 @@ var update = function() {
     });
     $.openSection.setItems(openItems);
     $.completedSection.setItems(completedItems);
+    $.openSection.headerTitle = Alloy.Collections.todo.open().length + ' open items';
+    $.completedSection.headerTitle = Alloy.Collections.todo.completed().length + ' completed items';
     /**
      * change the completed item template
      */
@@ -49,7 +51,8 @@ var update = function() {
  * listeners
  */
 $.newentry.addEventListener('return', function(e) {
-    var desc = e.value, newTodo;
+    var desc = e.value,
+        newTodo;
     newTodo = Alloy.createModel('todo', {
         'desc' : desc,
         'priority' : 'high'
@@ -59,7 +62,9 @@ $.newentry.addEventListener('return', function(e) {
     $.newentry.value = '';
 });
 Alloy.Collections.todo.on("add", function(item) {
-    var desc, priority, newItem;
+    var desc,
+        priority,
+        newItem;
     desc = item.get('desc');
     priority = item.get('priority');
     alloy_id = item.get('alloy_id');
@@ -84,19 +89,16 @@ $.todolist.addEventListener('itemclick', function(e) {
     /**
      * completed defaults to false, onclick it toggles and view is updated
      */
-    var item, model, completed = 0;
-    if (e.section.id && e.section.id === 'openSection') {
-        completed = 1;
-    }
+    var item,
+        model;
     //get the item from the relevant section
     item = $[e.section.id].getItemAt(e.itemIndex);
     //update the model and persist the update
     model = Alloy.Collections.todo.get(item.alloy_id.text);
-    model.set("completed", completed);
-    model.save();
+    model.toggle();
 });
 var show = true;
-var toggle = function() {
+var showForm = function() {
     var top;
     if (show) {
         top = 50;
@@ -106,10 +108,26 @@ var toggle = function() {
     show = !show;
     var animation = Titanium.UI.createAnimation();
     animation.top = top;
-    animation.duration = 500;
+    animation.duration = 1000;
+    animation.curve = Titanium.UI.ANIMATION_EASE_IN;
     $.popOver.animate(animation);
 };
-$.config.addEventListener('click', toggle);
+var slide = function() {
+    var left;
+    if (show) {
+        left = 0;
+    } else {
+        left = Alloy.Globals.Helpers.slideIn.left;
+    }
+    show = !show;
+    var animation = Titanium.UI.createAnimation();
+    animation.left = left;
+    animation.duration = 1000;
+    animation.curve = Titanium.UI.ANIMATION_EASE_IN;
+    $.slide.animate(animation);
+};
+
+$.config.addEventListener('click', slide);
 
 //finally load the page
 update();
