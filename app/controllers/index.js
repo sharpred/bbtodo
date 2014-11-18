@@ -37,8 +37,10 @@ $.newentry.addEventListener('return', function(e) {
         $.newentry.value = '';
     }
 });
-Alloy.Collections.todo.on("add", update);
-Alloy.Collections.todo.on('change', update);
+_.each(['add', 'change'], function(event) {
+    Alloy.Collections.todo.on(event, update);
+});
+
 /**
  * itemclick listener
  */
