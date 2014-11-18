@@ -23,16 +23,19 @@ var update = function() {
  * listeners
  */
 $.newentry.addEventListener('return', function(e) {
-    var desc = e.value,
+    var desc,
         newTodo;
-    newTodo = Alloy.createModel('todo', {
-        'desc' : desc,
-        'priority' : 'high'
-    });
-    newTodo.save();
-    Alloy.Collections.todo.add(newTodo);
-    //clear the textfield
-    $.newentry.value = '';
+    desc = e.value;
+    if (desc) {
+        newTodo = Alloy.createModel('todo', {
+            'desc' : desc,
+            'priority' : 'high'
+        });
+        newTodo.save();
+        Alloy.Collections.todo.add(newTodo);
+        //clear the textfield
+        $.newentry.value = '';
+    }
 });
 Alloy.Collections.todo.on("add", update);
 Alloy.Collections.todo.on('change', update);
