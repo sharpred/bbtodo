@@ -6,7 +6,7 @@
         </View>
         <View id="mainWindow" class="mainWindow">
             <TextField width="90%" height="30" id="newentry" color="black" backgroundColor="white" opacity="0.5" hintText="Add an Item" paddingLeft="10"></TextField>
-            <ListView id="todolist" separatorStyle="Titanium.UI.iPhone.ListViewSeparatorStyle.SINGLE_LINE" width="90%" height="70%" backgroundColor="white" defaultItemTemplate="openTemplate">
+            <ListView id="todolist" class="listView" defaultItemTemplate="openTemplate">
                 <Templates>
                     <Require src="templates/openItem"/>
                     <Require src="templates/closedItem"/>

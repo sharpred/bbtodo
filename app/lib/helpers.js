@@ -8,7 +8,7 @@
             qtrWidth : (Math.ceil(Alloy.Globals.Helpers.deviceWidth * 0.25)),
             fourth : (Math.ceil((Alloy.Globals.Helpers.deviceWidth * 4)/10)),
         };
-        Alloy.Globals.Helpers.listViewHeight = (Math.ceil((Alloy.Globals.Helpers.deviceWidth * 7)/10));
+        Alloy.Globals.Helpers.listViewHeight = (Alloy.Globals.Helpers.deviceHeight - 100);
         Alloy.Globals.Helpers.popOver = {
             top : (Alloy.Globals.Helpers.deviceHeight + 1)
         };

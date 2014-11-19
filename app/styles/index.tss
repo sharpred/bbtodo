@@ -1,5 +1,5 @@
 ".container": {
-	backgroundColor:"white"
+	backgroundColor: "white"
 },
 "Label": {
 	width: Ti.UI.SIZE,
@@ -32,7 +32,7 @@
 	opacity: 0.75
 },
 ".listView": {
-	height: Alloy.Globals.listViewHeight,
+	height: Alloy.Globals.Helpers.listViewHeight,
 	separatorStyle: "Titanium.UI.iPhone.ListViewSeparatorStyle.SINGLE_LINE",
 	width: "90%",
 	backgroundColor: "white"
