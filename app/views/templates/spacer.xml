@@ -1,5 +1,5 @@
 <Alloy>
-    <ItemTemplate name="spacerTemplate" backgroundColor="transparent" selectedBackgroundColor="transparent" height="Ti.UI.SIZE">
+    <ItemTemplate name="spacerTemplate" backgroundColor="black" selectedBackgroundColor="transparent" height="Ti.UI.SIZE">
         <View class="box" height="15" />
     </ItemTemplate>
 </Alloy>
