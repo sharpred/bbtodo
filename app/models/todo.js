@@ -9,7 +9,7 @@ exports.definition = {
         },
         adapter : {
             type : "sql",
-            collection_name : "todo"
+            collection_name : "todo" // jshint ignore:line
         }
     },
     extendModel : function(Model) {
@@ -32,8 +32,8 @@ exports.definition = {
                     return todo.get('completed');
                 });
             },
-            getCompleted : function() {
-                completedItems = [];
+            getCompletedItems : function() {
+                var completedItems = [];
                 _.each(this.completed(), function(item) {
                     completedItems.push({
                         desc : {
@@ -42,7 +42,7 @@ exports.definition = {
                         priority : {
                             text : item.get('priority')
                         },
-                        alloy_id : {
+                        alloy_id : { // jshint ignore:line
                             text : item.get('alloy_id')
                         }
                     });
@@ -52,8 +52,8 @@ exports.definition = {
             open : function() {
                 return this.without.apply(this, this.completed());
             },
-            getOpen : function() {
-                openItems = [];
+            getOpenItems : function() {
+                var openItems = [];
                 _.each(this.open(), function(item) {
                     openItems.push({
                         desc : {
@@ -62,7 +62,7 @@ exports.definition = {
                         priority : {
                             text : item.get('priority')
                         },
-                        alloy_id : {
+                        alloy_id : { // jshint ignore:line
                             text : item.get('alloy_id')
                         }
                     });

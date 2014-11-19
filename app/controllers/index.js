@@ -1,18 +1,15 @@
 var update = function() {
-    var openItems = [],
-        completedItems = [],
-        savedItems,
-        totalOpen,
-        totalClosed;
-    $.openSection.setItems(Alloy.Collections.todo.getOpen());
-    $.completedSection.setItems(Alloy.Collections.todo.getCompleted());
+    var items,
+        count;
+    $.openSection.setItems(Alloy.Collections.todo.getOpenItems());
+    $.completedSection.setItems(Alloy.Collections.todo.getCompletedItems());
     $.openSection.headerTitle = Alloy.Collections.todo.open().length + ' open items';
     $.completedSection.headerTitle = Alloy.Collections.todo.completed().length + ' completed items';
     /**
      * change the completed item template
      */
-    var items = $.completedSection.getItems();
-    var count = 0;
+    items = $.completedSection.getItems();
+    count = 0;
     _.each(items, function(item) {
         item.template = 'closedTemplate';
         $.completedSection.updateItemAt(count, item);
@@ -37,7 +34,7 @@ $.newentry.addEventListener('return', function(e) {
         $.newentry.value = '';
     }
 });
-_.each(['add', 'change'], function(event) {
+_.each(['add', 'change:completed'], function(event) {
     Alloy.Collections.todo.on(event, update);
 });
 
@@ -53,7 +50,7 @@ $.todolist.addEventListener('itemclick', function(e) {
     //get the item from the relevant section
     item = $[e.section.id].getItemAt(e.itemIndex);
     //update the model and persist the update
-    model = Alloy.Collections.todo.get(item.alloy_id.text);
+    model = Alloy.Collections.todo.get(item.alloy_id.text); // jshint ignore:line
     model.toggle();
 });
 
