@@ -5,6 +5,4 @@
         } else {
             console.log('todo collection already exists');
         }
-        //fetch the up to date data
-        Alloy.Collections.todo.fetch();
     }());

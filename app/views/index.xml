@@ -1,4 +1,5 @@
 <Alloy>
+    <Collection src="todo"/>
     <Window class="container" backgroundImage="bg/bg.png">
         <View id="header" width="90%" top="20" height="30" >
             <View id="config" left="0" backgroundImage="light_gear.png" height="20" width="20"/>
@@ -12,11 +13,11 @@
                     <Require src="templates/closedItem"/>
                     <Require src="templates/spacer"/>
                 </Templates>
-                <ListSection headerTitle="open items" id="openSection"/>
+                <ListSection dataCollection="todo" dataFilter="filterOpen" headerTitle="open items" id="openSection"/>
                 <ListSection id="spacerSection">
                     <ListItem template ="spacerTemplate"/>
                 </ListSection>
-                <ListSection headerTitle="completed items" id="completedSection"/>
+                <ListSection dataCollection="todo" dataFilter="filterCompleted" headerTitle="completed items" id="completedSection"/>
             </ListView>
         </View>
         <View id="popOver" class="popOver">
