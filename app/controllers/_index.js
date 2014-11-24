@@ -19,7 +19,7 @@ var update = function() {
 /**
  * listeners
  */
-/*
+
 $.newentry.addEventListener('return', function(e) {
 var desc,
 newTodo;
@@ -34,17 +34,17 @@ Alloy.Collections.todo.add(newTodo);
 //clear the textfield
 $.newentry.value = '';
 }
-});*/
+});
 
-/*
+
 _.each(['add', 'change:completed'], function(event) {
 Alloy.Collections.todo.on(event, update);
-});*/
+});
 
 /**
  * itemclick listener
  */
-/*
+
  $.todolist.addEventListener('itemclick', function(e) {
  var item,
  model;
@@ -53,16 +53,7 @@ Alloy.Collections.todo.on(event, update);
  //update the model and persist the update
  model = Alloy.Collections.todo.get(item.alloy_id.text); // jshint ignore:line
  model.toggle();
- });*/
-
-function filterOpen(collection) {
-    //return collection.getOpenItems();
-    $.openSection.setItems(Alloy.Collections.todo.getOpenItems());
-};
-
-function filterCompleted(collection) {
-    return collection.getCompletedItems();
-};
+ });
 
 //finally load the page
 //update();
