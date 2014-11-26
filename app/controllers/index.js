@@ -1,6 +1,8 @@
 //fetch the up to date data
 var todo = Alloy.Collections.todo;
 todo.fetch();
+$.closedSection.headerTitle = todo.completed().length + ' completed items';
+$.openSection.headerTitle = todo.open().length + ' open items';
 
 /*
  var updateUI = function(collection) {
@@ -44,6 +46,8 @@ _.each(['add', 'change:completed'], function(event) {
     todo.on(event, function() {
         console.log(event + ' fired');
         updateUI();
+        $.closedSection.headerTitle = todo.completed().length + ' completed items';
+        $.openSection.headerTitle = todo.open().length + ' open items';
     });
 });
 
