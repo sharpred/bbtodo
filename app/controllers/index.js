@@ -1,3 +1,21 @@
+var updateUI = function(collection) {
+    var items,
+        count;
+    $.openSection.setItems(collection.getOpenItems());
+    $.closedSection.setItems(collection.getCompletedItems());
+    $.openSection.headerTitle = collection.open().length + ' open items';
+    $.closedSection.headerTitle = collection.completed().length + ' completed items';
+    /**
+     * change the completed item template
+     */
+    items = $.closedSection.getItems();
+    count = 0;
+    _.each(items, function(item) {
+        item.template = 'closedTemplate';
+        $.closedSection.updateItemAt(count, item);
+        count++;
+    });
+};
 function filterOpen(collection) {
     return collection.where({
         completed : 0
@@ -19,6 +37,15 @@ function transformFunction(model) {
     }
     return transform;
 }
+
+
+_.each(['add', 'change:completed'], function(event) {
+    Alloy.Collections.todo.on(event, function() {
+        updateUI(Alloy.Collections.todo);
+    });
+});
+
+
 
 $.todolist.addEventListener('itemclick', function(e) {
     var item,

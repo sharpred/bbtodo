@@ -1,5 +1,5 @@
 <Alloy>
-    <Collection src="todo"/>
+    <Collection id="todo" src="todo"/>
     <Window class="container" backgroundImage="bg/bg.png">
         <View id="header" width="90%" top="20" height="30" >
             <View id="config" left="0" backgroundImage="light_gear.png" height="20" width="20"/>
@@ -12,7 +12,13 @@
                     <Require src="templates/openItem"/>
                     <Require src="templates/closedItem"/>
                 </Templates>
-                <ListSection dataCollection="todo" dataFilter="filterOpen" dataTransform="transformFunction" headerTitle="open items" id="openSection">
+                <ListSection
+                    dataCollection="todo"
+                    dataFilter="filterOpen"
+                    dataTransform="transformFunction"
+                    dataFunction="updateUI"
+                    headerTitle="open items"
+                    id="openSection">
                     <ListItem
                         template="{template}"
                         desc:text="{desc}"
