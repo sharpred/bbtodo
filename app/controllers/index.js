@@ -1,31 +1,33 @@
-var updateUI = function(collection) {
-    var items,
-        count;
-    $.openSection.setItems(collection.getOpenItems());
-    $.closedSection.setItems(collection.getCompletedItems());
-    $.openSection.headerTitle = collection.open().length + ' open items';
-    $.closedSection.headerTitle = collection.completed().length + ' completed items';
-    /**
-     * change the completed item template
-     */
-    items = $.closedSection.getItems();
-    count = 0;
-    _.each(items, function(item) {
-        item.template = 'closedTemplate';
-        $.closedSection.updateItemAt(count, item);
-        count++;
-    });
-};
+//fetch the up to date data
+var todo = Alloy.Collections.todo;
+todo.fetch();
+
+/*
+ var updateUI = function(collection) {
+ var items,
+ count;
+ $.openSection.setItems(collection.getOpenItems());
+ $.closedSection.setItems(collection.getCompletedItems());
+ $.openSection.headerTitle = collection.open().length + ' open items';
+ $.closedSection.headerTitle = collection.completed().length + ' completed items';
+
+ items = $.closedSection.getItems();
+ count = 0;
+ _.each(items, function(item) {
+ item.template = 'closedTemplate';
+ $.closedSection.updateItemAt(count, item);
+ count++;
+ });
+ };*/
+
 function filterOpen(collection) {
-    return collection.where({
-        completed : 0
-    });
+    var open = collection.open();
+    return open;
 };
 
 function filterClosed(collection) {
-    return collection.where({
-        completed : 1
-    });
+    var closed = collection.completed();
+    return closed;
 };
 
 function transformFunction(model) {
@@ -38,14 +40,12 @@ function transformFunction(model) {
     return transform;
 }
 
-
 _.each(['add', 'change:completed'], function(event) {
-    Alloy.Collections.todo.on(event, function() {
-        updateUI(Alloy.Collections.todo);
+    todo.on(event, function() {
+        console.log(event + ' fired');
+        updateUI();
     });
 });
-
-
 
 $.todolist.addEventListener('itemclick', function(e) {
     var item,
@@ -53,11 +53,14 @@ $.todolist.addEventListener('itemclick', function(e) {
     //get the item from the relevant section
     item = $[e.section.id].getItemAt(e.itemIndex);
     //update the model and persist the update
-    model = Alloy.Collections.todo.get(item.alloy_id.text);
+    model = todo.get(item.alloy_id.text);
     // jshint ignore:line
     model.toggle();
 });
 
 $.index.open();
-//fetch the up to date data
-Alloy.Collections.todo.fetch();
+
+// Free model-view data binding resources when this view-controller closes
+$.index.addEventListener('close', function() {
+    $.destroy();
+});
