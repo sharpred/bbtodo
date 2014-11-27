@@ -1,8 +1,6 @@
 //fetch the up to date data
 var todo = Alloy.Collections.todo;
 todo.fetch();
-$.closedSection.headerTitle = todo.completed().length + ' completed items';
-$.openSection.headerTitle = todo.open().length + ' open items';
 
 function filterOpen(collection) {
     var open = collection.open();
@@ -13,7 +11,15 @@ function filterClosed(collection) {
     var closed = collection.completed();
     return closed;
 };
-
+function transform(model) {
+    var transform = {};
+    transform.template = "openTemplate";
+    _.extend(transform, model.toJSON());
+    if (transform.completed) {
+        transform.template = "closedTemplate";
+    }
+    return transform;
+}
 _.each(['add', 'change:completed', 'destroy'], function(event) {
     todo.on(event, function() {
         var completedCount,
@@ -21,8 +27,6 @@ _.each(['add', 'change:completed', 'destroy'], function(event) {
         completedCount = todo.completed().length;
         openCount = todo.open().length;
         console.log(event + ' fired');
-        $.closedSection.headerTitle = completedCount + ' completed items';
-        $.openSection.headerTitle = openCount + ' open items';
     });
 });
 
@@ -46,11 +50,13 @@ _.each(['itemclick', 'delete'], function(event) {
         var item,
             model;
         item = $[e.section.id].getItemAt(e.itemIndex);
-        model = todo.get(item.alloy_id.text);
-        if (event && event === "delete") {
-            model.destroy();
-        } else {
-            model.toggle();
+        if (item) {
+            model = todo.get(item.alloy_id.text);
+            if (event && event === "delete") {
+                model.destroy();
+            } else {
+                model.toggle();
+            }
         }
     });
 });

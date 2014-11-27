@@ -27,47 +27,25 @@ exports.definition = {
     extendCollection : function(Collection) {
         _.extend(Collection.prototype, {
             // extended functions and properties go here
+            initialize : function() {
+                counter = 0;
+                this.fetch({
+                    success : function() {
+                        counter++;
+                        console.log('fetched: '+counter);
+                    },
+                    error : function() {
+                        console.error('fetch errored');
+                    }
+                });
+            },
             completed : function() {
                 return this.filter(function(todo) {
                     return todo.get('completed');
                 });
             },
-            getCompletedItems : function() {
-                var completedItems = [];
-                _.each(this.completed(), function(item) {
-                    completedItems.push({
-                        desc : {
-                            text : item.get('desc')
-                        },
-                        priority : {
-                            text : item.get('priority')
-                        },
-                        alloy_id : { // jshint ignore:line
-                            text : item.get('alloy_id')
-                        }
-                    });
-                });
-                return completedItems;
-            },
             open : function() {
                 return this.without.apply(this, this.completed());
-            },
-            getOpenItems : function() {
-                var openItems = [];
-                _.each(this.open(), function(item) {
-                    openItems.push({
-                        desc : {
-                            text : item.get('desc')
-                        },
-                        priority : {
-                            text : item.get('priority')
-                        },
-                        alloy_id : { // jshint ignore:line
-                            text : item.get('alloy_id')
-                        }
-                    });
-                });
-                return openItems;
             }
         });
 
