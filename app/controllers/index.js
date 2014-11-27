@@ -14,7 +14,7 @@ function filterClosed(collection) {
     return closed;
 };
 
-_.each(['add', 'change:completed'], function(event) {
+_.each(['add', 'change:completed', 'destroy'], function(event) {
     todo.on(event, function() {
         var completedCount, openCount;
         completedCount = todo.completed().length;

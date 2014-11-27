@@ -36,4 +36,10 @@
 	separatorStyle: "Titanium.UI.iPhone.ListViewSeparatorStyle.SINGLE_LINE",
 	width: "90%",
 	backgroundColor: "white"
+},
+".openItem": {
+	canEdit: true,
+	height: 50,
+	backgroundColor: 'transparent',
+	selectedBackgroundColor: 'transparent'
 }
