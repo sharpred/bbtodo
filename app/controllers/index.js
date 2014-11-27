@@ -4,24 +4,6 @@ todo.fetch();
 $.closedSection.headerTitle = todo.completed().length + ' completed items';
 $.openSection.headerTitle = todo.open().length + ' open items';
 
-/*
- var updateUI = function(collection) {
- var items,
- count;
- $.openSection.setItems(collection.getOpenItems());
- $.closedSection.setItems(collection.getCompletedItems());
- $.openSection.headerTitle = collection.open().length + ' open items';
- $.closedSection.headerTitle = collection.completed().length + ' completed items';
-
- items = $.closedSection.getItems();
- count = 0;
- _.each(items, function(item) {
- item.template = 'closedTemplate';
- $.closedSection.updateItemAt(count, item);
- count++;
- });
- };*/
-
 function filterOpen(collection) {
     var open = collection.open();
     return open;
@@ -34,6 +16,7 @@ function filterClosed(collection) {
 
 function transformFunction(model) {
     var transform = model.toJSON();
+    transform.template = '';
     if (transform.completed === 1) {
         transform.template = "closedTemplate";
     } else {
@@ -58,7 +41,6 @@ $.todolist.addEventListener('itemclick', function(e) {
     item = $[e.section.id].getItemAt(e.itemIndex);
     //update the model and persist the update
     model = todo.get(item.alloy_id.text);
-    // jshint ignore:line
     model.toggle();
 });
 
