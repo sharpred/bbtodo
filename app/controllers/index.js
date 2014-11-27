@@ -16,7 +16,8 @@ function filterClosed(collection) {
 
 _.each(['add', 'change:completed', 'destroy'], function(event) {
     todo.on(event, function() {
-        var completedCount, openCount;
+        var completedCount,
+            openCount;
         completedCount = todo.completed().length;
         openCount = todo.open().length;
         console.log(event + ' fired');
@@ -49,6 +50,15 @@ $.todolist.addEventListener('itemclick', function(e) {
     //update the model and persist the update
     model = todo.get(item.alloy_id.text);
     model.toggle();
+});
+$.todolist.addEventListener('delete', function(e) {
+    var item,
+        model;
+    //get the item from the relevant section
+    item = $[e.section.id].getItemAt(e.itemIndex);
+    //update the model and persist the update
+    model = todo.get(item.alloy_id.text);
+    model.destroy();
 });
 
 $.index.open();
