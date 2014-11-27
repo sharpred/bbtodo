@@ -1,4 +1,5 @@
 <Alloy>
+    <Collection id="todo" src="todo"/>
     <Window class="container" backgroundImage="bg/bg.png">
         <View id="header" width="90%" top="20" height="30" >
             <View id="config" left="0" backgroundImage="light_gear.png" height="20" width="20"/>
@@ -9,14 +10,36 @@
             <ListView id="todolist" class="listView" defaultItemTemplate="openTemplate">
                 <Templates>
                     <Require src="templates/openItem"/>
-                    <Require src="templates/closedItem"/>
-                    <Require src="templates/spacer"/>
+                    <!--<Require src="templates/closedItem"/>-->
                 </Templates>
-                <ListSection headerTitle="open items" id="openSection"/>
-                <ListSection id="spacerSection">
-                    <ListItem template ="spacerTemplate"/>
+                <ListSection
+                    dataCollection="todo"
+                    dataFilter="filterOpen"
+                    dataFunction="updateUI"
+                    headerTitle="open items"
+                    id="openSection">
+                    <ListItem
+                        template="openTemplate"
+                        desc:text="{desc}"
+                        priority:text="{priority}"
+                        alloy_id:text="{alloy_id}"
+                    />
                 </ListSection>
-                <ListSection headerTitle="completed items" id="completedSection"/>
+                <!--
+                <ListSection
+                                    dataCollection="todo"
+                                    dataFilter="filterClosed"
+                                    dataFunction="updateUI"
+                                    headerTitle="closed items"
+                                    id="closedSection">
+                                    <ListItem
+                                        template="closedTemplate"
+                                        desc:text="{desc}"
+                                        priority:text="{priority}"
+                                        alloy_id:text="{alloy_id}"
+                                    />
+                                </ListSection>-->
+
             </ListView>
         </View>
         <View id="popOver" class="popOver">

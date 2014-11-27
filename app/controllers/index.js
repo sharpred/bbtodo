@@ -1,24 +1,31 @@
-var update = function() {
-    var items,
-        count;
-    $.openSection.setItems(Alloy.Collections.todo.getOpenItems());
-    $.completedSection.setItems(Alloy.Collections.todo.getCompletedItems());
-    $.openSection.headerTitle = Alloy.Collections.todo.open().length + ' open items';
-    $.completedSection.headerTitle = Alloy.Collections.todo.completed().length + ' completed items';
-    /**
-     * change the completed item template
-     */
-    items = $.completedSection.getItems();
-    count = 0;
-    _.each(items, function(item) {
-        item.template = 'closedTemplate';
-        $.completedSection.updateItemAt(count, item);
-        count++;
-    });
+//fetch the up to date data
+var todo = Alloy.Collections.todo;
+todo.fetch();
+//$.closedSection.headerTitle = todo.completed().length + ' completed items';
+$.openSection.headerTitle = todo.open().length + ' open items';
+
+function filterOpen(collection) {
+    var open = collection.open();
+    return open;
 };
-/**
- * listeners
- */
+
+function filterClosed(collection) {
+    var closed = collection.completed();
+    return closed;
+};
+
+_.each(['add', 'change:completed', 'destroy'], function(event) {
+    todo.on(event, function() {
+        var completedCount,
+            openCount;
+        completedCount = todo.completed().length;
+        openCount = todo.open().length;
+        console.log(event + ' fired');
+        //$.closedSection.headerTitle = completedCount + ' completed items';
+        $.openSection.headerTitle = openCount + ' open items';
+    });
+});
+
 $.newentry.addEventListener('return', function(e) {
     var desc,
         newTodo;
@@ -29,31 +36,28 @@ $.newentry.addEventListener('return', function(e) {
             'priority' : 'high'
         });
         newTodo.save();
-        Alloy.Collections.todo.add(newTodo);
-        //clear the textfield
+        todo.add(newTodo);
         $.newentry.value = '';
     }
 });
-_.each(['add', 'change:completed'], function(event) {
-    Alloy.Collections.todo.on(event, update);
+
+_.each(['itemclick', 'delete'], function(event) {
+    $.todolist.addEventListener(event, function(e) {
+        var item,
+            model;
+        item = $[e.section.id].getItemAt(e.itemIndex);
+        model = todo.get(item.alloy_id.text);
+        if (event && event === "delete") {
+            model.destroy();
+        } else {
+            model.toggle();
+        }
+    });
 });
 
-/**
- * itemclick listener
- */
-$.todolist.addEventListener('itemclick', function(e) {
-    /**
-     * completed defaults to false, onclick it toggles and view is updated
-     */
-    var item,
-        model;
-    //get the item from the relevant section
-    item = $[e.section.id].getItemAt(e.itemIndex);
-    //update the model and persist the update
-    model = Alloy.Collections.todo.get(item.alloy_id.text); // jshint ignore:line
-    model.toggle();
-});
-
-//finally load the page
-update();
 $.index.open();
+
+// Free model-view data binding resources when this view-controller closes
+$.index.addEventListener('close', function() {
+    $.destroy();
+});
