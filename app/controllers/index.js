@@ -21,7 +21,6 @@ _.each(['add', 'change:completed', 'destroy'], function(event) {
         completedCount = todo.completed().length;
         openCount = todo.open().length;
         console.log(event + ' fired');
-        //updateUI();
         //$.closedSection.headerTitle = completedCount + ' completed items';
         $.openSection.headerTitle = openCount + ' open items';
     });
@@ -38,27 +37,22 @@ $.newentry.addEventListener('return', function(e) {
         });
         newTodo.save();
         todo.add(newTodo);
-        //clear the textfield
         $.newentry.value = '';
     }
 });
-$.todolist.addEventListener('itemclick', function(e) {
-    var item,
-        model;
-    //get the item from the relevant section
-    item = $[e.section.id].getItemAt(e.itemIndex);
-    //update the model and persist the update
-    model = todo.get(item.alloy_id.text);
-    model.toggle();
-});
-$.todolist.addEventListener('delete', function(e) {
-    var item,
-        model;
-    //get the item from the relevant section
-    item = $[e.section.id].getItemAt(e.itemIndex);
-    //update the model and persist the update
-    model = todo.get(item.alloy_id.text);
-    model.destroy();
+
+_.each(['itemclick', 'delete'], function(event) {
+    $.todolist.addEventListener(event, function(e) {
+        var item,
+            model;
+        item = $[e.section.id].getItemAt(e.itemIndex);
+        model = todo.get(item.alloy_id.text);
+        if (event && event === "delete") {
+            model.destroy();
+        } else {
+            model.toggle();
+        }
+    });
 });
 
 $.index.open();
