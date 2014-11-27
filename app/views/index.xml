@@ -10,12 +10,12 @@
             <ListView id="todolist" class="listView" defaultItemTemplate="openTemplate">
                 <Templates>
                     <Require src="templates/openItem"/>
-                    <!--<Require src="templates/closedItem"/>-->
+                    <Require src="templates/closedItem"/>
                 </Templates>
                 <ListSection
                     dataCollection="todo"
                     dataFilter="filterOpen"
-                    dataFunction="updateUI"
+                    dataFunction="updateUIopen"
                     headerTitle="open items"
                     id="openSection">
                     <ListItem
@@ -25,21 +25,19 @@
                         alloy_id:text="{alloy_id}"
                     />
                 </ListSection>
-                <!--
                 <ListSection
-                                    dataCollection="todo"
-                                    dataFilter="filterClosed"
-                                    dataFunction="updateUI"
-                                    headerTitle="closed items"
-                                    id="closedSection">
-                                    <ListItem
-                                        template="closedTemplate"
-                                        desc:text="{desc}"
-                                        priority:text="{priority}"
-                                        alloy_id:text="{alloy_id}"
-                                    />
-                                </ListSection>-->
-
+                    dataCollection="todo"
+                    dataFilter="filterClosed"
+                    dataFunction="updateUIclosed"
+                    headerTitle="closed items"
+                    id="closedSection">
+                    <ListItem
+                        template="closedTemplate"
+                        desc:text="{desc}"
+                        priority:text="{priority}"
+                        alloy_id:text="{alloy_id}"
+                    />
+                </ListSection>
             </ListView>
         </View>
         <View id="popOver" class="popOver">

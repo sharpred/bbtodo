@@ -1,7 +1,7 @@
 //fetch the up to date data
 var todo = Alloy.Collections.todo;
 todo.fetch();
-//$.closedSection.headerTitle = todo.completed().length + ' completed items';
+$.closedSection.headerTitle = todo.completed().length + ' completed items';
 $.openSection.headerTitle = todo.open().length + ' open items';
 
 function filterOpen(collection) {
@@ -21,7 +21,7 @@ _.each(['add', 'change:completed', 'destroy'], function(event) {
         completedCount = todo.completed().length;
         openCount = todo.open().length;
         console.log(event + ' fired');
-        //$.closedSection.headerTitle = completedCount + ' completed items';
+        $.closedSection.headerTitle = completedCount + ' completed items';
         $.openSection.headerTitle = openCount + ' open items';
     });
 });
