@@ -1,7 +1,7 @@
 //fetch the up to date data
 var todo = Alloy.Collections.todo;
 todo.fetch();
-$.closedSection.headerTitle = todo.completed().length + ' completed items';
+//$.closedSection.headerTitle = todo.completed().length + ' completed items';
 $.openSection.headerTitle = todo.open().length + ' open items';
 
 function filterOpen(collection) {
@@ -14,26 +14,33 @@ function filterClosed(collection) {
     return closed;
 };
 
-function transformFunction(model) {
-    var transform = model.toJSON();
-    transform.template = '';
-    if (transform.completed === 1) {
-        transform.template = "closedTemplate";
-    } else {
-        transform.template = "openTemplate";
-    }
-    return transform;
-}
-
 _.each(['add', 'change:completed'], function(event) {
     todo.on(event, function() {
+        var completedCount, openCount;
+        completedCount = todo.completed().length;
+        openCount = todo.open().length;
         console.log(event + ' fired');
         updateUI();
-        $.closedSection.headerTitle = todo.completed().length + ' completed items';
-        $.openSection.headerTitle = todo.open().length + ' open items';
+        //$.closedSection.headerTitle = completedCount + ' completed items';
+        $.openSection.headerTitle = openCount + ' open items';
     });
 });
 
+$.newentry.addEventListener('return', function(e) {
+    var desc,
+        newTodo;
+    desc = e.value;
+    if (desc) {
+        newTodo = Alloy.createModel('todo', {
+            'desc' : desc,
+            'priority' : 'high'
+        });
+        newTodo.save();
+        todo.add(newTodo);
+        //clear the textfield
+        $.newentry.value = '';
+    }
+});
 $.todolist.addEventListener('itemclick', function(e) {
     var item,
         model;
