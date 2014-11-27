@@ -20,7 +20,7 @@ _.each(['add', 'change:completed'], function(event) {
         completedCount = todo.completed().length;
         openCount = todo.open().length;
         console.log(event + ' fired');
-        updateUI();
+        //updateUI();
         //$.closedSection.headerTitle = completedCount + ' completed items';
         $.openSection.headerTitle = openCount + ' open items';
     });
